@@ -1,0 +1,39 @@
+Solidity Coding Test (4 Hours): 
+Task
+Given the following set of contracts the goal is to implement to-bytes and from-bytes converter for structs to be able to pass them from contract to contract in a form of bytes. Please assume that Storage and Controller contracts have different addresses on the network. StructDefiner is never deployed on its own and is used as a part of Storage or Controller.
+
+contract StructDefiner {
+  struct MyStruct {
+    uint256 someField;
+    address someAddress,
+    uint128 someOtherField
+    uint128 oneMoreField
+  }
+}
+
+contract Storage {
+  StructDefiner.MyStruct[] internal structs;
+
+  function getStructByIdx(uint256 idx) external view returns (bytes) {
+    assembly {
+        // your code here
+    }
+  }
+}
+
+contract Controller {
+  Storage internal storage;
+
+  constructor(addrerss _storage) {
+    storage = Storage(_storage);
+  }
+
+  getStruct(uint256 idx) public returns (StructDefiner.MyStruct myStruct) {
+    bytes memory _myStruct = storage.getStructByIdx(idx);
+    assembly {
+        // your code here
+    }
+  }
+}
+
+
